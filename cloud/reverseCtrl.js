@@ -34,7 +34,7 @@ exports.reverse = async (latitude, longitude) => {
     }
 
     apikey.increment("requests");
-    await apikey.save(null, { useMasterKey: true })
+    apikey.save(null, { useMasterKey: true })
 
     const addresses = google.results.filter((a) => !a.geometry.bounds).map((address) => {
         const location = new Parse.GeoPoint({
