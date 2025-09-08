@@ -1,0 +1,22 @@
+{
+  "name": "geocode-cache",
+  "version": "1.0.0",
+  "description": "Api tool for reduce google api geocode requests",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dashboard": "source .env && parse-dashboard --dev --appId $PARSE_APPID --masterKey $PARSE_MASTERKEY --serverURL $PARSE_SERVER_URL --appName GeocodeCache"
+  },
+  "keywords": [
+    "google",
+    "geocode",
+    "reverse"
+  ],
+  "author": "lui2mi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "parse-server": "^8.2.4"
+  }
+}
