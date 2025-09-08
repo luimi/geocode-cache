@@ -14,6 +14,12 @@ const server = new ParseServer({
     serverURL: PARSE_SERVER_URL
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/reverse', async (req, res) => {
     const {lat, lng} = req.query;
     const result = await reverseCtrl.reverse(parseFloat(lat), parseFloat(lng))
