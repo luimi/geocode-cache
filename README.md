@@ -33,7 +33,7 @@ npm run dashboard
 ```
 
 ## Config variables
-```
+
 | Name | Type | Default | MasterKey | 
 |--|--|--|--|
 | avgDistance | Number |0| true|
@@ -41,7 +41,6 @@ npm run dashboard
 | radiusDistance | Number |0| true|
 | radiusDistancePreferenced | Boolean |true| true|
 | requestLimit | Number |10000| true|
-```
 
 ## Classes
 
