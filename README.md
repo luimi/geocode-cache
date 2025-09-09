@@ -35,7 +35,7 @@ npm run dashboard
 ## Config variables
 ```
 | Name | Type | Default | MasterKey | 
-|--|--|--|--|--|
+|--|--|--|--|
 | avgDistance | Number |0| true|
 | maxDistance | Number |0| true|
 | radiusDistance | Number |0| true|
