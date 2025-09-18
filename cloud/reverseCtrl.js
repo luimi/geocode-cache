@@ -1,3 +1,5 @@
+const statistics = require("./statistics");
+
 exports.reverse = async (latitude, longitude, config) => {
     const point = new Parse.GeoPoint({ latitude: latitude, longitude: longitude });
 
@@ -83,14 +85,7 @@ exports.reverse = async (latitude, longitude, config) => {
 
     // Actualiza la configuración en segundo plano
     const bestDistance = addresses[0].distance;
-    const avgDistance = config.get("avgDistance");
-    const maxDistance = config.get("maxDistance");
-    Parse.Config.save({}, {
-        avgDistance: (avgDistance + bestDistance) / 2,
-        maxDistance: maxDistance < bestDistance ? bestDistance : maxDistance
-    }).catch(err => {
-        console.error("Error al actualizar la configuración:", err);
-    });
+    statistics.complement({bestDistance})
 
     // Retorno de la respuesta al usuario sin esperar a que las tareas de fondo terminen
     return { success: true, ...addresses[0] };

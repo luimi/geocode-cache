@@ -3,6 +3,7 @@ const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 const app = express();
 const reverseCtrl = require('./cloud/reverseCtrl');
+const statistics = require('./cloud/statistics');
 let config;
 
 const { PORT, PARSE_MONGODB_URI, PARSE_APPID, PARSE_MASTERKEY, PARSE_SERVER_URL, PARSE_MASTERKEY_IP } = process.env;
@@ -36,7 +37,8 @@ const init = async () => {
     app.use('/parse', server.app);
     app.listen(PORT || 1337, async () => {
         console.log(`GeocodeCache running ${PORT || 1337}`);
-        config = await Parse.Config.get({ useMasterKey: true });
+        const config = await Parse.Config.get({ useMasterKey: true });
+        statistics.initialize(config)
     });
 }
 
