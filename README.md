@@ -16,7 +16,6 @@ PORT=4000
 PARSE_MONGODB_URI="mongodb+srv://user:password@main.abc123.mongodb.net/Main?retryWrites=true&w=majority&appName=Main"
 PARSE_APPID="abcedfghijklmnopqrstuvwxyz"
 PARSE_MASTERKEY="abcedfghijklmnopqrstuvwxyz"
-PARSE_RESTKEY="abcedfghijklmnopqrstuvwxyz"
 PARSE_SERVER_URL="http://localhost:4000/parse"
 ```
 
