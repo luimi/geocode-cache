@@ -5,14 +5,15 @@ const app = express();
 const reverseCtrl = require('./cloud/reverseCtrl');
 let config;
 
-const { PORT, PARSE_MONGODB_URI, PARSE_APPID, PARSE_MASTERKEY, PARSE_SERVER_URL } = process.env;
+const { PORT, PARSE_MONGODB_URI, PARSE_APPID, PARSE_MASTERKEY, PARSE_SERVER_URL, PARSE_MASTERKEY_IP } = process.env;
 
 const server = new ParseServer({
     databaseURI: PARSE_MONGODB_URI,
     cloud: './cloud/main.js',
     appId: PARSE_APPID,
     masterKey: PARSE_MASTERKEY,
-    serverURL: PARSE_SERVER_URL
+    serverURL: PARSE_SERVER_URL,
+    masterKeyIps: [PARSE_MASTERKEY_IP ? `${PARSE_MASTERKEY_IP}` : '0.0.0.0/0']
 });
 
 app.use(function(req, res, next) {
