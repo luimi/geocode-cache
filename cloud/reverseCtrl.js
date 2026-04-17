@@ -36,13 +36,18 @@ exports.reverse = async (latitude, longitude, config) => {
 
     if (!apikey) return { success: false, message: "No apikey available" };
 
-    let google = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apikey.get("key")}`);
-    google = await google.json();
+    let google;
+    try {
+        google = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apikey.get("key")}`);
+        google = await google.json();
+    } catch (e) {
+        console.log("Error:", google.error_message ? google.error_message : "No address found")
+    }
 
-    if (!google.results || google.results.length === 0) {
+    if (!google || !google.results) {
         apikey.set("active", false);
         apikey.save(null, { useMasterKey: true });
-        return { success: false, message: google.error_message ? google.error_message : "No address found" };
+        return { success: false, message: "No address found" };
     }
 
     // Actualización de la API Key en segundo plano
