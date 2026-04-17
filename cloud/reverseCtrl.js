@@ -1,7 +1,14 @@
 const statistics = require("./statistics");
 
 exports.reverse = async (latitude, longitude, config) => {
-    const point = new Parse.GeoPoint({ latitude: latitude, longitude: longitude });
+    let point;
+
+    try {
+        point = new Parse.GeoPoint({ latitude: latitude, longitude: longitude });
+    } catch (e) {
+        console.log("lat/lng", latitude, longitude);
+        return { success: false, message: "Invalid lat/lng" }
+    }
 
     // 1. Búsqueda en caché y retorno rápido si se encuentra
     const cache = await new Parse.Query("Cache")
@@ -77,7 +84,7 @@ exports.reverse = async (latitude, longitude, config) => {
             await cache.save(null, { useMasterKey: true });
         }
     };
-    
+
     // Inicia todas las operaciones de guardado en paralelo
     Promise.all(addresses.map(checkExistsAndSave)).catch(err => {
         console.error("Error al guardar en caché:", err);
@@ -85,7 +92,7 @@ exports.reverse = async (latitude, longitude, config) => {
 
     // Actualiza la configuración en segundo plano
     const bestDistance = addresses[0].distance;
-    statistics.complement({bestDistance})
+    statistics.complement({ bestDistance })
 
     // Retorno de la respuesta al usuario sin esperar a que las tareas de fondo terminen
     return { success: true, ...addresses[0] };
